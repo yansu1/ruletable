@@ -1,43 +1,41 @@
 
 <template>
-
-       		<el-form :model="formData"  ref="ruleTable" label-width="0px" class="ruletable" >
-					<!-- 站点table -->
-					<el-table
-						:data="formData[target]"
-						border
-						ref="stationtable"
-                        @current-change="currentChange"
-                        @selection-change="handleSelectionChange"
-						class="stationsTable"
-					>
-                        <!-- 是否有多选框 -->
-                        <el-table-column
-                            v-if="tableBox"
-                            type="selection"
-                            width="55"
-                        >
-						</el-table-column>
-                        <!-- 单元格填充 -->
-						<el-table-column
-                            v-for="(item,index) in tableHeader"
-                            :key="index"
-							:label="item.label"
-							:width="item.width"
-                            :formatter="item.formatter"
-							:prop="item.prop">
-								<template slot-scope="scope">
-                                    <el-form-item :prop="`${target}.${scope.$index}.${item.prop}`" :rules="item.rule">
-                                            <slot name="column" :item="scope.row" :data="scope.row[item.prop]" :index="index" :rowindex="scope.$index">{{scope.row[item.prop]}}</slot>
-                                    </el-form-item>
-								</template>	
-						</el-table-column>
-					</el-table>
+    <el-form :model="formData"  ref="ruleTable" label-width="0px" class="ruletable" >
+            <!-- 站点table -->
+            <el-table
+                :data="formData[target]"
+                border
+                ref="stationtable"
+                @current-change="currentChange"
+                @selection-change="handleSelectionChange"
+                class="stationsTable"
+            >
+                <!-- 是否有多选框 -->
+                <el-table-column
+                    v-if="tableBox"
+                    type="selection"
+                    width="55"
+                >
+                </el-table-column>
+                <!-- 单元格填充 -->
+                <el-table-column
+                    v-for="(item,index) in tableHeader"
+                    :key="index"
+                    :label="item.label"
+                    :width="item.width"
+                    :formatter="item.formatter"
+                    :prop="item.prop">
+                        <template slot-scope="scope">
+                            <el-form-item :prop="`${target}.${scope.$index}.${item.prop}`" :rules="item.rule">
+                                    <slot name="column" :item="scope.row" :data="scope.row[item.prop]" :index="index" :rowindex="scope.$index">{{scope.row[item.prop]}}</slot>
+                            </el-form-item>
+                        </template>	
+                </el-table-column>
+            </el-table>
         </el-form>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 export default{
   data() {
     return {
